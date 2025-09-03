@@ -87,9 +87,11 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 			'_EventTimezoneAbbr' => Timezones::abbr( $local_start, $timezone ),
 		];
 
-		if ( isset( $args['venue'] ) ) {
-			$args['meta_input']['_EventVenueID'] = $args['venue'];
-			unset( $args['venue'] );
+		if ( isset( $args['venues'] ) || isset( $args['venue'] ) ) {
+			$venues = isset( $args['venues'] )
+				? (array) $args['venues']
+				: (array) $args['venue'];
+			unset( $args['venues'], $args['venue'] );
 		}
 
 		if ( isset( $args['organizers'] ) || isset( $args['organizer'] ) ) {
@@ -114,6 +116,12 @@ class Event extends \WP_UnitTest_Factory_For_Post {
 		$args = array_merge( $defaults, $args );
 
 		$id = parent::create_object( $args );
+
+		if ( ! empty( $venues ) ) {
+			foreach ( $venues as $venue ) {
+				add_post_meta( $id, '_EventVenueID', $venue );
+			}
+		}
 
 		if ( ! empty( $organizers ) ) {
 			foreach ( $organizers as $organizer ) {

@@ -35,6 +35,16 @@ class Core_Schema_Filters {
 			5
 		);
 
+		add_filter(
+			'graphql_post_object_connection_query_args',
+			[
+				'\WPGraphQL\QL_Events\Data\Connection\Venue_Connection_Resolver',
+				'get_query_args',
+			],
+			10,
+			5
+		);
+
 		add_filter( 'graphql_data_is_private', [ __CLASS__, 'is_cpt_private' ], 10, 6 );
 	}
 

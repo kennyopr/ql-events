@@ -33,6 +33,16 @@ class EventQueriesTest extends \QL_Events\Test\TestCase\QLEventsTestCase {
 			);
 		}
 
+		foreach ( $event->venues as $venue ) {
+			$expected[] = $this->expectedNode(
+				'event.venues',
+				[
+					'id'         => $this->toRelayId( 'post', $venue->ID ),
+					'databaseId' => $venue->ID,
+				]
+			);
+		}
+
 		return $expected;
 	}
 
@@ -40,10 +50,11 @@ class EventQueriesTest extends \QL_Events\Test\TestCase\QLEventsTestCase {
 	public function testEventQueries() {
 		$organizer_one = $this->factory->organizer->create();
 		$organizer_two = $this->factory->organizer->create();
-		$venue_id      = $this->factory->venue->create();
+		$venue_one     = $this->factory->venue->create();
+		$venue_two     = $this->factory->venue->create();
 		$event_id      = $this->factory->event->create(
 			[
-				'venue'      => $venue_id,
+				'venues'     => [ $venue_one, $venue_two ],
 				'organizers' => [ $organizer_one, $organizer_two ],
 			]
 		);
@@ -73,6 +84,10 @@ class EventQueriesTest extends \QL_Events\Test\TestCase\QLEventsTestCase {
                     origin
                     featured
                     venue {
+						id
+						databaseId
+                    }
+                    venues {
 						id
 						databaseId
                     }
