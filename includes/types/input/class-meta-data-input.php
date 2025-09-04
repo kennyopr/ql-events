@@ -2,11 +2,13 @@
 /**
  * WPInputObjectType - MetaDataInput
  *
- * @package WPGraphQL\QL_Events\Type\WPInputObject;
+ * @package WPGraphQL\WooCommerce\Type\WPInputObject
  * @since   0.1.0
  */
 
 namespace WPGraphQL\QL_Events\Type\WPInputObject;
+
+use WPGraphQL\QL_Events\QL_Events;
 
 /**
  * Class Meta_Data_Input

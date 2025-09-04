@@ -2,7 +2,7 @@
 /**
  * Enum Type - Events_Virtual_Show_Embed_At_Enum
  *
- * @package WPGraphQL\QL_Events\Type\WPEnum
+ * @package WPGraphQL\WooCommerce\Pro\Type\WPEnum
  * @since   0.3.0
  */
 

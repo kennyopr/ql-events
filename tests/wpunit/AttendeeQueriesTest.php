@@ -2,18 +2,18 @@
 
 class AttendeeQueriesTest extends \QL_Events\Test\TestCase\QLEventsTestCase {
 
-	// TODO: add test.
-	public function testAttendeeConnectionQueries() {
+    // TODO: add test.
+    public function testAttendeeConnectionQueries() {
 		// Generate organizers.
 		$organizer_one = $this->factory->organizer->create();
 		$organizer_two = $this->factory->organizer->create();
 		// Generate venue/event.
-		$venue_id = $this->factory->venue->create();
-		$event_id = $this->factory->event->create(
-			[
-				'venue'      => $venue_id,
-				'organizers' => [ $organizer_one, $organizer_two ],
-			]
+		$venue_id      = $this->factory->venue->create();
+		$event_id      = $this->factory->event->create(
+			array(
+				'venue' => $venue_id,
+				'organizers' => array( $organizer_one, $organizer_two ),
+			)
 		);
 
 		// Generate ticket.
@@ -37,31 +37,32 @@ class AttendeeQueriesTest extends \QL_Events\Test\TestCase\QLEventsTestCase {
 				}
 			}
 		';
-		$variables = [ 'id' => $event_id ];
+		$variables = array( 'id' => $event_id );
 		$response  = $this->graphql( compact( 'query', 'variables' ) );
 
 		// Expect empty results because guest user querying.
-		$expected = [
-			$this->expectedField( 'event.attendees.nodes', [] ),
-		];
+		$expected = array(
+			$this->expectedField( 'event.attendees.nodes', array() )
+		);
 		$this->assertQuerySuccessful( $response, $expected );
+
 
 		// Query again as admin.
 		$this->loginAs( 1 );
 		$response = $this->graphql( compact( 'query', 'variables' ) );
 
 		// Confirm attendee in results.
-		$expected = [
+		$expected = array(
 			$this->expectedNode(
 				'event.attendees.nodes',
-				[
+				array(
 					'id'         => $this->toRelayId( 'post', $attendee_id ),
 					'databaseId' => $attendee_id,
-					'fullName'   => $full_name,
-				]
-			),
-		];
+					'fullName'   => $full_name
+				)
+			)
+		);
 		$this->assertQuerySuccessful( $response, $expected );
-	}
+    }
 
 }

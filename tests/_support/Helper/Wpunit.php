@@ -9,5 +9,6 @@ class Wpunit extends \Codeception\Module {
 	 * triggered after module is created and configuration is loaded
 	 */
 	public function _initialize() {
+
 	}
 }
