@@ -39,7 +39,14 @@ class Organizer_Connection_Resolver {
 			// @codingStandardsIgnoreLine
 			if ( 'organizers' === $info->fieldName ) {
 				$query_args['post_parent'] = 0;
-				$query_args['post__in']    = get_post_meta( $source->ID, '_EventOrganizerID' );
+				$organizer_ids = get_post_meta( $source->ID, '_EventOrganizerID' );
+				
+				// If no organizer IDs found, return empty result
+				if ( empty( $organizer_ids ) ) {
+					$query_args['post__in'] = [0]; // This will return no results
+				} else {
+					$query_args['post__in'] = $organizer_ids;
+				}
 			}
 		}
 

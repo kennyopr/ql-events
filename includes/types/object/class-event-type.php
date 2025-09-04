@@ -70,6 +70,25 @@ class Event_Type {
 						return ! empty( $venue_id ) ? DataSource::resolve_post_object( $venue_id, $context ) : null;
 					},
 				],
+				'venues'           => [
+					'type'        => [ 'list_of' => 'Venue' ],
+					'description' => __( 'Event venues', 'ql-events' ),
+					'resolve'     => function( $source, array $args, AppContext $context ) {
+						$venue_ids = get_post_meta( $source->ID, '_EventVenueID' );
+						if ( empty( $venue_ids ) ) {
+							return [];
+						}
+						
+						$venues = [];
+						foreach ( $venue_ids as $venue_id ) {
+							$venue = DataSource::resolve_post_object( $venue_id, $context );
+							if ( $venue ) {
+								$venues[] = $venue;
+							}
+						}
+						return $venues;
+					},
+				],
 				'showMapLink'      => [
 					'type'        => 'Boolean',
 					'description' => __( 'Show event map link?', 'ql-events' ),
