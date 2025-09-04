@@ -411,6 +411,7 @@ if ( ! class_exists( '\WPGraphQL\QL_Events\QL_Events' ) ) :
 
 			require $include_directory_path . 'connection/class-attendees.php';
 			require $include_directory_path . 'connection/class-events.php';
+			require $include_directory_path . 'connection/class-events-categories.php';
 			require $include_directory_path . 'connection/class-organizers.php';
 			require $include_directory_path . 'connection/class-tickets.php';
 			require $include_directory_path . 'connection/class-tickets-plus.php';

@@ -11,6 +11,7 @@
 namespace WPGraphQL\QL_Events\Type\WPObject;
 
 use Tribe__Events__JSON_LD__Event as JSON_LD;
+use Tribe__Events__Main as Main;
 use WPGraphQL\AppContext;
 use WPGraphQL\Data\DataSource;
 use WPGraphQL\QL_Events\QL_Events;

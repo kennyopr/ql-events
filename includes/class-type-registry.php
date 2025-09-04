@@ -81,6 +81,7 @@ class Type_Registry {
 
 		// connections.
 		Connection\Organizers::register_connections();
+		Connection\Events_Categories::register_connections();
 
 		// Register Events Pro fields, types, queries, and mutations.
 		if ( $this->load_events_pro_schema() ) {
